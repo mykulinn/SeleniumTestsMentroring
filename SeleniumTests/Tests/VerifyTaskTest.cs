@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -20,6 +16,7 @@ namespace SeleniumTests.Tests
         private NavigatePanelPage NavigatePanelPage;
         private GeneralAddEditMyTaskPageObject addMyNewTask;
         private MyTasksViewPage myTasksViewPage;
+        private string unique = DateTime.Now.ToString("HH-mm-ss-f");
 
         [SetUp]
         public void SetUp()
@@ -40,20 +37,17 @@ namespace SeleniumTests.Tests
         {
             LoginPage.Login(CommonTestData.AdminEmail, CommonTestData.Password);
             NavigatePanelPage.ClickOnCreateNewTaskButton();
-            addMyNewTask.SetTitle("TestAutomationTask_1");
-            addMyNewTask.SetDescription("TestAutomationTask_1_Description");
+            addMyNewTask.SetTitle(unique + "TestAutomationTask_1");
+            addMyNewTask.SetDescription(unique + "TestAutomationTask_1_Description");
             addMyNewTask.SetPriority("Medium");
             addMyNewTask.ClickCreateTaskButton();
             myTasksViewPage.ClickOnMyTasksTab();
-            myTasksViewPage.VerifyMyTaskExist("TestAutomationTask_1", "DevOps");
+            myTasksViewPage.VerifyMyTaskExist(unique + "TestAutomationTask_1", "DevOps");
         }
 
         [TearDown]
         public void LogOut()
         {
-            myTasksViewPage.clickEditTaskButton("TestAutomationTask_1");
-            myTasksViewPage.clickTaskSettingsButton();
-            myTasksViewPage.clickDeleteTaskButton();
             NavigatePanelPage.ClickOnLogoutButton();
             browser.Quit();
         }
