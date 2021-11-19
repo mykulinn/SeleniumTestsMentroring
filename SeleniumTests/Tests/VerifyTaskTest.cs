@@ -49,7 +49,7 @@ namespace SeleniumTests.Tests
         public void LogOut()
         {
             NavigatePanelPage.ClickOnLogoutButton();
-            browser.Quit();
+            browser.Quit();  
         }
     }
 }
